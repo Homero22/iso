@@ -1,0 +1,413 @@
+<!-- Botón para guardar todos los datos -->
+
+<div class="flex justify-between">
+  <p class="flex items-center text-base">
+    SISTEMA DE GESTIÓN DE SEGURIDAD Y SALUD EN EL TRABAJO
+  </p>
+  <button class="Documents-btn my-6" (click)="guardar()">
+    <span class="folderContainer">
+      <svg
+        class="fileBack"
+        width="146"
+        height="113"
+        viewBox="0 0 146 113"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 4C0 1.79086 1.79086 0 4 0H50.3802C51.8285 0 53.2056 0.627965 54.1553 1.72142L64.3303 13.4371C65.2799 14.5306 66.657 15.1585 68.1053 15.1585H141.509C143.718 15.1585 145.509 16.9494 145.509 19.1585V109C145.509 111.209 143.718 113 141.509 113H3.99999C1.79085 113 0 111.209 0 109V4Z"
+          fill="url(#paint0_linear_117_4)"
+        ></path>
+        <defs>
+          <linearGradient
+            id="paint0_linear_117_4"
+            x1="0"
+            y1="0"
+            x2="72.93"
+            y2="95.4804"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#8F88C2"></stop>
+            <stop offset="1" stop-color="#5C52A2"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg
+        class="filePage"
+        width="88"
+        height="99"
+        viewBox="0 0 88 99"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="88" height="99" fill="url(#paint0_linear_117_6)"></rect>
+        <defs>
+          <linearGradient
+            id="paint0_linear_117_6"
+            x1="0"
+            y1="0"
+            x2="81"
+            y2="160.5"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="white"></stop>
+            <stop offset="1" stop-color="#686868"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <svg
+        class="fileFront"
+        width="160"
+        height="79"
+        viewBox="0 0 160 79"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0.29306 12.2478C0.133905 9.38186 2.41499 6.97059 5.28537 6.97059H30.419H58.1902C59.5751 6.97059 60.9288 6.55982 62.0802 5.79025L68.977 1.18034C70.1283 0.410771 71.482 0 72.8669 0H77H155.462C157.87 0 159.733 2.1129 159.43 4.50232L150.443 75.5023C150.19 77.5013 148.489 79 146.474 79H7.78403C5.66106 79 3.9079 77.3415 3.79019 75.2218L0.29306 12.2478Z"
+          fill="url(#paint0_linear_117_5)"
+        ></path>
+        <defs>
+          <linearGradient
+            id="paint0_linear_117_5"
+            x1="38.7619"
+            y1="8.71323"
+            x2="66.9106"
+            y2="82.8317"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#C3BBFF"></stop>
+            <stop offset="1" stop-color="#51469A"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </span>
+    <p class="text">Guardar</p>
+  </button>
+</div>
+
+<hr />
+<div class="w-full m-0 pt-10 px-0">
+  <div class="row">
+    <!-- Navegación -->
+    <div class="col-lg-4">
+      <p class="text-center font-bold mb-2">
+        COMPROMISOS DE LA POLÍTICA DE SST
+      </p>
+      <div
+        class="nav nav-pills faq-nav"
+        id="faq-tabs"
+        role="tablist"
+        aria-orientation="vertical"
+      >
+        <a
+          *ngFor="let compromiso of compromisos; let i = index"
+          class="nav-link hover:bg-red-500"
+          [ngClass]="{ active: activeTab === 'tab' + i }"
+          [ngStyle]="{ 'background-color': compromiso.color }"
+          role="tab"
+          (click)="setActiveTab('tab' + i)"
+          [attr.aria-controls]="'tab' + i"
+          [attr.aria-selected]="activeTab === 'tab' + i"
+        >
+          <i class="mdi mdi-help-circle"></i> {{ compromiso.compromiso }}
+        </a>
+      </div>
+      <div class="container mx-auto pt-1">
+        <!-- Totales -->
+        <div class="">
+          <h2 class="mb-3">
+            Índice de Cumplimiento General: {{ indiceCumplimiento.toFixed(2) }}%
+          </h2>
+          <h2 class="">
+            Total Presupuesto: ${{ totalPresupuesto.toFixed(2) }}
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido dinámico -->
+    <div class="col-lg-8 p-0">
+      <p class="text-center font-bold mb-2">OBJETIVOS DE SST</p>
+      <div class="tab-content" id="faq-tab-content">
+        <div
+          *ngFor="let compromiso of compromisos; let i = index"
+          class="tab-pane"
+          [ngClass]="{
+            show: activeTab === 'tab' + i,
+            active: activeTab === 'tab' + i
+          }"
+          [id]="'tab' + i"
+          role="tabpanel"
+          [attr.aria-labelledby]="'tab' + i"
+          [ngStyle]="{ 'background-color': compromiso.color }"
+        >
+          <!-- Botón para agregar un nuevo objetivo -->
+          <div class="p-2">
+            <button
+              class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              (click)="addObjetivo(i)"
+            >
+              Agregar Nuevo Objetivo
+            </button>
+          </div>
+
+          <!-- Acordeón de objetivos -->
+          <div class="accordion" [id]="'accordion-tab-' + i">
+            <div
+              *ngFor="let objetivo of compromiso.objetivos; let j = index"
+              class="card"
+              [ngStyle]="{ 'background-color': compromiso.color }"
+            >
+              <div class="card-header">
+                <textarea
+                  class="flex w-full p-2 border border-gray-300 rounded mt-3"
+                  [(ngModel)]="objetivo.descripcion"
+                  placeholder="Escriba el Objetivo..."
+                  rows="2"
+                ></textarea>
+                <button
+                  class="inline-flex items-center px-4 py-2 my-3 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:shadow-lg"
+                  (click)="deleteObjetivo(i, j); $event.stopPropagation()"
+                >
+                  <svg
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    class="h-5 w-5 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+
+                  Eliminar Objetivo
+                </button>
+
+                <hr />
+
+                <div class="mt-2 flex justify-between">
+                  <!-- Botón para agregar una nueva tarea -->
+                  <button
+                    class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                    (click)="addMeta(i, j)"
+                  >
+                    Agregar Nueva Meta
+                  </button>
+
+                  <!-- Botón para colapsar-->
+                  <button
+                    class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                    type="button"
+                    (click)="toggleAccordion(objetivo)"
+                    [attr.aria-expanded]="objetivo.expanded"
+                    [attr.aria-controls]="
+                      'accordion-tab-' + i + '-content-' + j
+                    "
+                  >
+                    Colapsar
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="collapse"
+                [ngClass]="{ show: objetivo.expanded }"
+                [ngStyle]="{
+                  visibility: objetivo.expanded ? 'visible' : 'hidden'
+                }"
+                [id]="'accordion-tab-' + i + '-content-' + j"
+                data-parent="'accordion-tab-' + i"
+              >
+                <div class="card-body">
+                  <!-- Campos de tarea -->
+                  <div
+                    *ngFor="let meta of objetivo.metas; let k = index"
+                    class="mb-4 border p-3 rounded row"
+                  >
+                    <div class="form-group col-12 mb-3">
+                      <label class="form-label" for="metaDescripcion"
+                        >Meta</label
+                      >
+                      <textarea
+                        id="metaDescripcion"
+                        class="flex w-full p-2 border border-gray-300 rounded"
+                        [(ngModel)]="meta.descripcion"
+                        placeholder="Descripción de la Meta"
+                        rows="2"
+                      ></textarea>
+                    </div>
+
+                    <div class="form-group col-12 mb-3">
+                      <label class="form-label" for="indicadorDescripcion"
+                        >Indicador</label
+                      >
+                      <textarea
+                        class="flex w-full p-2 border border-gray-300 rounded"
+                        [(ngModel)]="meta.indicador"
+                        placeholder="Descripción del Indicador"
+                        rows="2"
+                      ></textarea>
+                    </div>
+
+                    <div class="form-group col-12 mb-3">
+                      <label for="reponsableDescripcion">Responsable</label>
+                      <textarea
+                        class="flex w-full p-2 border border-gray-300 rounded"
+                        [(ngModel)]="meta.responsable"
+                        placeholder="Responsable"
+                        rows="2"
+                      ></textarea>
+                    </div>
+
+                    <div class="col-6 pe-2 mt-4 flex flex-col">
+                      <label class="form-label" for="actividadPDescripcion"
+                        >Actividad Planificada</label
+                      >
+                      <input
+                        type="number"
+                        class="flex-1 border border-gray-300 p-2 rounded"
+                        [(ngModel)]="meta.actividades_planificadas"
+                        (input)="calculateIndice(meta)"
+                      />
+                    </div>
+
+                    <div class="col-6 ps-2 mt-4 flex flex-col">
+                      <label class="form-label" for="actividadRDescripcion"
+                        >Actividad Realizada</label
+                      >
+                      <input
+                        type="number"
+                        class="flex-1 border border-gray-300 p-2 rounded"
+                        [(ngModel)]="meta.actividades_realizadas"
+                        (input)="calculateIndice(meta)"
+                      />
+                    </div>
+
+                    <div class="col-6 pe-2 mt-4 flex flex-col">
+                      <label for="fechaIDescripcion">Fecha de Inicio</label>
+                      <input
+                        type="date"
+                        class="flex-1 p-2 border border-gray-300 rounded"
+                        [(ngModel)]="meta.fecha_inicio"
+                      />
+                    </div>
+
+                    <div class="col-6 ps-2 mt-4 flex flex-col">
+                      <label for="fechaFDescripcion">Fecha Final</label>
+                      <input
+                        type="date"
+                        class="flex-1 border border-gray-300 p-2 rounded"
+                        [(ngModel)]="meta.fecha_final"
+                      />
+                    </div>
+
+                    <div class="col-6 pe-2 mt-4 flex flex-col">
+                      <label for="PresupuestoDescripcion">Presupuesto</label>
+                      <input
+                        type="number"
+                        class="flex-1 border border-gray-300 rounded p-2"
+                        [(ngModel)]="meta.presupuesto"
+                        (input)="calcularTotalPresupuesto()"
+                      />
+                    </div>
+
+                    <!-- Requisitos ISO -->
+                    <div class="my-5">
+                      <h4 class="text-md font-bold mb-4">
+                        Requisitos ISO 45001:2018
+                      </h4>
+                      <div class="flex flex-wrap">
+                        <div
+                          *ngFor="
+                            let requisito of meta.requisitosISO;
+                            let ri = index
+                          "
+                          class="w-full flex items-center gap-2"
+                        >
+                          <textarea
+                            class="flex-1 border border-gray-300 rounded form-control"
+                            [(ngModel)]="meta.requisitosISO[ri]"
+                            placeholder="Ingrese un requisito ISO"
+                            rows="1"
+                          ></textarea>
+                          <button
+                            class="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:shadow-lg"
+                            (click)="deleteRequisito(meta, ri)"
+                          >
+                            <svg
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              class="h-5 w-5 mr-2"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                stroke-width="2"
+                                stroke-linejoin="round"
+                                stroke-linecap="round"
+                              ></path>
+                            </svg>
+
+                            Eliminar Requisito
+                          </button>
+                        </div>
+                      </div>
+                      <button
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-2"
+                        (click)="addRequisito(meta)"
+                      >
+                        Agregar Requisito
+                      </button>
+                    </div>
+
+                    <hr />
+
+                    <div class="flex justify-center mt-4">
+                      <button
+                        class="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:shadow-lg"
+                        (click)="deleteMeta(i, j, k)"
+                      >
+                        <svg
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          class="h-5 w-5 mr-2"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                          ></path>
+                        </svg>
+
+                        Eliminar Meta
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="pdfUrl" class="mt-4">
+  <h3 class="text-lg font-bold">Vista Previa del PDF</h3>
+  <iframe
+    [src]="pdfUrl"
+    class="w-full h-96 border border-gray-300 rounded"
+    title="Vista previa del documento PDF"
+  ></iframe>
+</div>

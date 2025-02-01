@@ -1,0 +1,103 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-6">Formulario por Pasos</h1>
+
+  <!-- Stepper Nav -->
+  <ul class="relative flex flex-row gap-x-2">
+    <li *ngFor="let step of steps; let i = index" class="flex items-center gap-x-2 shrink basis-0 flex-1 group"
+        [ngClass]="{'flex-none': i === steps.length - 1}">
+      <span class="min-w-7 min-h-7 inline-flex items-center text-xs align-middle">
+        <span class="size-7 flex justify-center items-center shrink-0 font-medium rounded-full"
+              [ngClass]="{
+                'bg-teal-500 text-white': i < currentStep, 
+                'bg-blue-600 text-white': i === currentStep, 
+                'bg-gray-100 text-gray-800': i > currentStep 
+              }">
+          {{i + 1}}
+        </span>
+      </span>
+      <span class="ms-2 text-sm font-light text-gray-800 ">{{ step.title }}</span>
+      <div *ngIf="i < steps.length - 1" class="w-full h-px flex-1 bg-gray-200"></div>
+    </li>
+  </ul>
+  <!-- End Stepper Nav -->
+
+  <!-- Stepper Content -->
+  <div class="mt-5 sm:mt-8">
+    <div class="p-4 bg-gray-50 flex flex-col justify-center items-center border border-dashed border-gray-200 rounded-xl">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">{{ steps[currentStep].title }}</h2>
+      <h3 class="text-gray-700 font-semibold mb-3">
+        {{ steps[currentStep].items[currentItemIndex] }}
+      </h3>
+      <div [formGroup]="currentItemFormGroup" class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="space-y-2">
+          <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
+          <select id="estado" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" formControlName="estado">
+            <option [value]="null">Seleccione</option>
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+            <option value="NA">NA</option>
+          </select>
+        </div>
+      
+        <div class="space-y-2">
+          <label for="accionPreventiva" class="block text-sm font-medium text-gray-700">Acción Preventiva</label>
+          <input id="accionPreventiva" type="text" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" formControlName="accionPreventiva">
+        </div>
+      
+        <div class="space-y-2">
+          <label for="accionCorrectiva" class="block text-sm font-medium text-gray-700">Acción Correctiva</label>
+          <input id="accionCorrectiva" type="text" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" formControlName="accionCorrectiva">
+        </div>
+      
+        <div class="space-y-2">
+          <label for="oportunidadMejora" class="block text-sm font-medium text-gray-700">Oportunidad de Mejora</label>
+          <input id="oportunidadMejora" type="text" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" formControlName="oportunidadMejora">
+        </div>
+      
+        <div class="space-y-2">
+          <label for="responsable" class="block text-sm font-medium text-gray-700">Responsable</label>
+          <input id="responsable" type="text" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" formControlName="responsable">
+        </div>
+      
+        <div class="space-y-2">
+          <label for="fechaCierre" class="block text-sm font-medium text-gray-700">Fecha de Cierre</label>
+          <input id="fechaCierre" type="date" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" formControlName="fechaCierre">
+        </div>
+      
+        <div class="col-span-full flex items-center">
+          <input type="checkbox" id="porcentajeCumplimiento" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" formControlName="porcentajeCumplimiento">
+          <label for="porcentajeCumplimiento" class="ml-2 block text-sm text-gray-900">Tarea Completada</label>
+        </div>
+      </div>
+
+        
+    </div>
+  </div>
+
+  <!-- Button Group -->
+  <div class="mt-5 flex justify-between items-center gap-x-2">
+    <button *ngIf="currentStep > 0 || currentItemIndex > 0" (click)="prevItem()"
+      class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
+      <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"></path>
+      </svg>
+      Back
+    </button>
+
+    <button *ngIf="currentStep < steps.length - 1 || currentItemIndex < steps[currentStep].items.length - 1" (click)="nextItem()"
+      class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+      Next
+      <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m9 18 6-6-6-6"></path>
+      </svg>
+    </button>
+
+    <button *ngIf="currentStep === steps.length - 1 && currentItemIndex === steps[currentStep].items.length - 1" (click)="finish()"
+      class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-teal-500 text-white hover:bg-teal-600">
+      Finish
+    </button>
+  </div>
+  <!-- End Button Group -->
+</div>

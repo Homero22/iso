@@ -1,0 +1,40 @@
+.card-menu {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    .card-menu-icon {
+      font-size: 24px;
+      color: #6366f1;
+      margin-right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .card-menu-content {
+      .card-menu-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #3730a3;
+        margin: 0;
+      }
+  
+      .card-menu-description {
+        font-size: 14px;
+        color: #6b7280;
+        margin: 4px 0 0;
+      }
+    }
+  }
+  

@@ -1,0 +1,9 @@
+<ng-container class="full-height" [ngSwitch]="layout">
+  <app-full-layout
+    class="full-height"
+    *ngSwitchCase="Layouts.Full"
+  ></app-full-layout>
+  <app-simple-layout *ngSwitchCase="Layouts.Simple"></app-simple-layout>
+</ng-container>
+
+<app-modal></app-modal>

@@ -1,0 +1,9 @@
+<div class="contentenedor-principal">
+  <app-header [rolActive]="rolActive"></app-header>
+  <div id="wrapper" class="main-container-app">
+    <app-sidebar [list_menu]="rolActive?.representarMenu"></app-sidebar>
+    <main id="content-wrapper" style="background: #fafafa">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

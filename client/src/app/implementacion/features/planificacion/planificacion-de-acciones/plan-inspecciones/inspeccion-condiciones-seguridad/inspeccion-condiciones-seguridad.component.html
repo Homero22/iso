@@ -1,0 +1,351 @@
+<!-- opciones para pasar de los formularios a los datos de responsables y un boton de guardar todo -->
+
+<div class="inline-flex items-center bg-white rounded-md shadow-sm border">
+  <!-- Icono de Guardar-Guardando -->
+  <button 
+    (click)="guardarDatos()"
+    class="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-l-md transition-colors focus:outline-none"
+  >
+    💾 {{guardar}}
+  </button>
+  
+  <!-- Separador -->
+  <span class="w-px h-5 bg-gray-400"></span>
+  <!-- Formulario -->
+  <button 
+    (click)="llenarData = true" 
+    [ngClass]="{'text-blue-600 bg-blue-100': llenarData, 'text-gray-500 hover:text-gray-700': !llenarData}"
+    class="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-l-md transition-colors focus:outline-none"
+  >
+    📝 Formulario
+  </button>
+
+  <!-- Separador -->
+  <span class="w-px h-5 bg-gray-400"></span>
+
+  <!-- Responsables -->
+  <button 
+    (click)="llenarData = false" 
+    [ngClass]="{'text-blue-600 bg-blue-100': !llenarData, 'text-gray-500 hover:text-gray-700': llenarData}"
+    class="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-r-md transition-colors focus:outline-none"
+  >
+    👤 Responsables
+  </button>
+</div>
+
+
+
+ 
+@if (llenarData) {
+  <div class="p-4  bg-white rounded-lg shadow-sm ">
+    <!-- Stepper Nav -->
+    <ul class="relative flex flex-row gap-x-2">
+      <li *ngFor="let step of steps; let i = index" class="flex items-center gap-x-2 shrink basis-0 flex-1 group"
+        [ngClass]="{'flex-none': i === steps.length - 1}">
+        <span class="min-w-7 min-h-7 inline-flex items-center text-xs align-middle">
+          <span class="size-7 flex justify-center items-center shrink-0 font-medium rounded-full" [ngClass]="{
+                  'bg-teal-500 text-white': i < currentStep, 
+                  'bg-blue-600 text-white': i === currentStep, 
+                  'bg-gray-100 text-gray-800': i > currentStep 
+                }">
+            {{i + 1}}
+          </span>
+        </span>
+        <span class="ms-2 text-sm font-light text-gray-800 ">{{ step.title }}</span>
+        <div *ngIf="i < steps.length - 1" class="w-full h-px flex-1 bg-gray-200"></div>
+      </li>
+    </ul>
+    <!-- End Stepper Nav -->
+  
+    <!-- Stepper Content -->
+    <div class="mt-5 sm:mt-8">
+      <div
+        class="p-4 bg-gray-50 flex flex-col justify-center items-center border border-dashed border-gray-200 rounded-xl">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">{{ steps[currentStep].title }}</h2>
+        <!-- Mostrar el número de item ejemplo  1/10 -->
+        <h3 class="text-gray-700 font-semibold mb-3">
+          {{ currentItemIndex + 1 }} / {{ steps[currentStep].items.length }}
+        </h3>
+        <h3 class="text-gray-700 font-semibold mb-3">
+          {{ steps[currentStep].items[currentItemIndex] }}
+        </h3>
+        <div [formGroup]="currentItemFormGroup" class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="space-y-2">
+            <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
+            <select id="estado" class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="estado"
+              (ngModelChange)="calcularEficacia()">
+              <option [value]="null">Seleccione</option>
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+              <option value="NA">NA</option>
+            </select>
+          </div>
+  
+          <div class="space-y-2">
+            <label for="accionPreventiva" class="block text-sm font-medium text-gray-700">Acción Preventiva</label>
+            <input id="accionPreventiva" type="text"
+              class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="accionPreventiva">
+          </div>
+  
+          <div class="space-y-2">
+            <label for="accionCorrectiva" class="block text-sm font-medium text-gray-700">Acción Correctiva</label>
+            <input id="accionCorrectiva" type="text"
+              class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="accionCorrectiva">
+          </div>
+  
+          <div class="space-y-2">
+            <label for="oportunidadMejora" class="block text-sm font-medium text-gray-700">Oportunidad de Mejora</label>
+            <input id="oportunidadMejora" type="text"
+              class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="oportunidadMejora">
+          </div>
+  
+          <div class="space-y-2">
+            <label for="responsable" class="block text-sm font-medium text-gray-700">Responsable</label>
+            <input id="responsable" type="text"
+              class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="responsable">
+          </div>
+  
+          <div class="space-y-2">
+            <label for="fechaCierre" class="block text-sm font-medium text-gray-700">Fecha de Cierre</label>
+            <input id="fechaCierre" type="date"
+              class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="fechaCierre">
+          </div>
+  
+          <div class="space-y-2">
+            <label for="porcentajeCumplimiento" class="ml-2 block text-sm text-gray-900">Cumplimiento ( % )</label>
+            <input type="number" min="0" max="100" id="porcentajeCumplimiento"
+              class="w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              formControlName="porcentajeCumplimiento"
+              >
+          </div>
+  
+  
+  
+  
+        </div>
+  
+  
+      </div>
+    </div>
+  
+    <!-- Button Group -->
+    <div class="mt-5 flex justify-between items-center gap-x-2">
+      <button *ngIf="currentStep > 0 || currentItemIndex > 0" (click)="prevItem()"
+        class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        Back
+      </button>
+  
+      <button *ngIf="currentStep < steps.length - 1 || currentItemIndex < steps[currentStep].items.length - 1"
+        (click)="nextItem()"
+        class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+        Next
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </button>
+  
+      <button *ngIf="currentStep === steps.length - 1 && currentItemIndex === steps[currentStep].items.length - 1"
+        (click)="finish()"
+        class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-teal-500 text-white hover:bg-teal-600">
+        Finish
+      </button>
+    </div>
+    <!-- End Button Group -->
+  </div>
+}
+
+<!-- LLenar datos de los responsables de la inspeccion -->
+@if (!llenarData) {
+  @if (paso !== 3) {
+
+    <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-sm">
+  
+      <!-- RESPONSABLE DE INSPECCIÓN -->
+      <div *ngIf="paso === 1" class="space-y-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Responsable de Inspección</h2>
+        
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Nombre:</label>
+            <input type="text" [(ngModel)]="formData.responsable_inspeccion"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500">
+          </div>
+    
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Cargo:</label>
+            <input type="text" [(ngModel)]="formData.cargo_responsable"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500">
+          </div>
+        </div>
+    
+        <button (click)="abrirFirma()" 
+                class="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
+          Firmar
+        </button>
+    
+        <!-- Vista previa de la firma si ya fue capturada -->
+        <div *ngIf="formData.firma_responsable" class="mt-4">
+          <h3 class="text-sm font-medium text-gray-700">Firma guardada:</h3>
+          <img [src]="formData.firma_responsable" alt="Firma Responsable" class="w-40 border rounded-md shadow">
+        </div>
+    
+        <!-- Botón para ir al siguiente paso -->
+        <button (click)="siguientePaso()" 
+                class="mt-4 w-full px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 transition">
+          Siguiente
+        </button>
+      </div>
+      
+      <!-- RESPONSABLE DE OFICINA -->
+      <div *ngIf="paso === 2" class="space-y-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Responsable de Oficina</h2>
+        
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Nombre:</label>
+            <input type="text" [(ngModel)]="formData.responsable_oficina"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500">
+          </div>
+    
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Cargo:</label>
+            <input type="text" [(ngModel)]="formData.cargo_responsable_oficina"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500">
+          </div>
+        </div>
+    
+        <button (click)="abrirFirma()" 
+                class="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
+          Firmar
+        </button>
+    
+        <!-- Vista previa de la firma si ya fue capturada -->
+        <div *ngIf="formData.firma_responsable_oficina" class="mt-4">
+          <h3 class="text-sm font-medium text-gray-700">Firma guardada:</h3>
+          <img [src]="formData.firma_responsable_oficina" alt="Firma Oficina" class="w-40 border rounded-md shadow">
+        </div>
+    
+        <!-- Botones para navegar entre pasos -->
+        <div class="flex justify-between mt-4">
+          <button (click)="paso = 1" 
+                  class="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 transition">
+            Anterior
+          </button>
+    
+          <button (click)="paso = 3" 
+                  class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 transition">
+            Finalizar
+          </button>
+        </div>
+      </div>
+    
+      <!-- FIRMA -->
+      <div *ngIf="mostrarFirma" class="mt-6">
+        <app-firma (firmaGuardada)="guardarFirma($event)"></app-firma>
+      </div>
+    
+      <!-- RESUMEN -->
+      <div *ngIf="paso === 3" class="space-y-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Resumen</h2>
+    
+        <div>
+          <p class="text-sm"><strong>Responsable de Inspección:</strong> {{ formData.responsable_inspeccion }} - {{ formData.cargo_responsable }}</p>
+          <img *ngIf="formData.firma_responsable" [src]="formData.firma_responsable" alt="Firma Responsable" class="w-40 border rounded-md shadow">
+        </div>
+    
+        <div>
+          <p class="text-sm"><strong>Responsable de Oficina:</strong> {{ formData.responsable_oficina }} - {{ formData.cargo_responsable_oficina }}</p>
+          <img *ngIf="formData.firma_responsable_oficina" [src]="formData.firma_responsable_oficina" alt="Firma Oficina" class="w-40 border rounded-md shadow">
+        </div>
+    
+        <button (click)="paso = 1" 
+                class="w-full px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 transition">
+          Volver a Editar
+        </button>
+      </div>
+    
+    </div>
+    
+  }
+  
+  <div *ngIf="paso === 3" class="p-6 bg-white rounded-lg shadow-sm">
+      <!-- Responsable de Inspección -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Columna 1: Responsable de Inspección -->
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <h3 class="text-lg font-medium text-gray-700">Responsable de Inspección</h3>
+            <div class="flex flex-col space-y-1">
+              <span class="text-base">{{ formData.responsable_inspeccion }}</span>
+              <span class="text-sm text-gray-500">{{ formData.cargo_responsable }}</span>
+            </div>
+          </div>
+          
+          <div class="border rounded-lg p-4 bg-gray-50">
+            <p class="text-sm text-gray-500 mb-2">Firma del Responsable</p>
+            <div class="min-h-[100px] flex items-center justify-center">
+              <img 
+                *ngIf="formData.firma_responsable" 
+                [src]="formData.firma_responsable" 
+                alt="Firma Responsable" 
+                class="max-w-[200px] max-h-[100px] object-contain"
+              >
+              <span *ngIf="!formData.firma_responsable" class="text-gray-400 text-sm">
+                Sin firma
+              </span>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Columna 2: Responsable de Oficina -->
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <h3 class="text-lg font-medium text-gray-700">Responsable de Oficina</h3>
+            <div class="flex flex-col space-y-1">
+              <span class="text-base">{{ formData.responsable_oficina }}</span>
+              <span class="text-sm text-gray-500">{{ formData.cargo_responsable_oficina }}</span>
+            </div>
+          </div>
+  
+          <div class="border rounded-lg p-4 bg-gray-50">
+            <p class="text-sm text-gray-500 mb-2">Firma del Responsable de Oficina</p>
+            <div class="min-h-[100px] flex items-center justify-center">
+              <img 
+                *ngIf="formData.firma_responsable_oficina" 
+                [src]="formData.firma_responsable_oficina" 
+                alt="Firma Oficina" 
+                class="max-w-[200px] max-h-[100px] object-contain"
+              >
+              <span *ngIf="!formData.firma_responsable_oficina" class="text-gray-400 text-sm">
+                Sin firma
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Volver un paso -->
+    <button (click)="paso = 2" 
+            class="mt-6 px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 transition">
+      Volver
+    </button>
+    <!-- Fecha y hora de la inspección -->
+    <div class="text-sm text-gray-500 flex justify-end items-center gap-4">
+      <span>Fecha de inspección: {{ dataEmpresa.fecha_inspeccion | date:'dd/MM/yyyy' }}</span>
+      <span>Hora: {{ dataEmpresa.hora_inspeccion}}</span>
+    </div>
+  </div>
+}
+
+
+

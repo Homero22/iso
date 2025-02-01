@@ -1,0 +1,8 @@
+.main-container-app {
+  display: flex;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+}

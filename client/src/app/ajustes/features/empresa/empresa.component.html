@@ -1,0 +1,190 @@
+<div *ngIf="!isClicked">
+  
+  @if (!verCentros) {
+    <div class="flex items-center justify-between px-4">
+      <h5 class="text-lg font-light" style="color: var(--color-gris-oscuro)">
+        Listado de
+        <span class="font-bold" style="color: var(--color-primary)">{{
+          titulo
+        }}</span>
+      </h5>
+      <button-modal
+        [tipoModal]="'nuevaEmpresa'"
+        [titleModal]="'Agregar Nueva Empresa'"
+        [contenido]="'Agregar Nueva Empresa'"
+        [conIcono]="true"
+        [icono]="'add'"
+        [color]="'#1c1917'"
+
+      >
+      </button-modal>
+    </div>
+  
+    <section class="relative py-3">
+      <div class="w-full mb-12 px-4">
+        <div
+          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-sm rounded bg-white text-black"
+        >
+          
+          <div class="block w-full overflow-x-auto">
+            <table class="items-center w-full bg-transparent border-collapse">
+              <thead>
+                <tr>
+                  <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-bold text-left text-white border-gray-700"
+                    style="background-color: var(--color-primary)"
+                  >
+                    Nombre
+                  </th>
+                  <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-bold text-left bg-blue-950 text-white border-gray-700"
+                    style="background-color: var(--color-primary)"
+                  >
+                    Dirección
+                  </th>
+                  <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-bold text-left bg-blue-950 text-white border-gray-700"
+                    style="background-color: var(--color-primary)"
+                  >
+                    Teléfono
+                  </th>
+                  <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-bold text-left bg-blue-950 text-white border-gray-700"
+                    style="background-color: var(--color-primary)"
+                  >
+                    Usuarios
+                  </th>
+                  <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-bold text-left bg-blue-950 text-white border-gray-700"
+                    style="background-color: var(--color-primary)"
+                  >
+                    Avance
+                  </th>
+                  <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-bold text-left bg-blue-950 text-white border-gray-700"
+                    style="background-color: var(--color-primary)"
+                  >
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr *ngFor="let empresa of empresas; let i = index">
+                  <th (click)="verCentrosEmpresa(empresa)"
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center hover:bg-gray-100 hover:cursor-pointer"
+                  >
+                    <img
+                      src="https://demos.creative-tim.com/notus-js/assets/img/bootstrap.jpg"
+                      class="h-12 w-12 bg-black rounded-full border"
+                      alt="..."
+                    />
+                    <span class="ml-3 font-bold text-black">{{
+                      empresa.str_empresa_nombre
+                    }}</span>
+                  </th>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                  >
+                    {{ empresa.str_empresa_direccion }}
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                  >
+                    <i class="fas fa-circle text-orange-500 mr-2"></i
+                    >{{ empresa.str_empresa_telefono }}
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                  >
+                    <div class="flex">
+                      <img
+                        src="https://demos.creative-tim.com/notus-js/assets/img/team-1-800x800.jpg"
+                        alt="..."
+                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                      />
+                      <img
+                        src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                        alt="..."
+                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                      />
+                      <img
+                        src="https://demos.creative-tim.com/notus-js/assets/img/team-3-800x800.jpg"
+                        alt="..."
+                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                      />
+                      <img
+                        src="https://demos.creative-tim.com/notus-js/assets/img/team-4-470x470.png"
+                        alt="..."
+                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                      />
+                    </div>
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                  >
+                    <div class="flex items-center">
+                      <span class="mr-2">60%</span>
+                      <div class="relative w-full">
+                        <div
+                          class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
+                        >
+                          <div
+                            style="width: 60%"
+                            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                  >
+                    <!-- Acciones editar, add useres -->
+                    <button
+                      (click)="editarEmpresa(empresa)"
+                      class="text-gray-600 bg-white rounded hover:bg-gray-100 hover:border hover:border-gray-300 hover:rounded-lg focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-400 transition duration-150 ease-in-out"
+                    >
+                      <i class="{{ classIcon }}">edit_square</i>
+                    </button>
+                    <button
+                      (click)="
+                        verUsuarios(
+                          empresa.int_empresa_id,
+                          
+                          empresa
+                        )
+                      "
+                      class="text-gray-600 bg-white rounded hover:bg-gray-100 hover:border hover:border-gray-300 hover:rounded-lg focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-400 transition duration-150 ease-in-out"
+                      
+                      >
+                      <i class="{{ classIcon }}">group</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+
+</div>
+
+@if (verCentros) {
+  <button-back
+    [title]="'Empresas'"
+    (click)="verEmpresas()"
+    onkeypress="verEmpresas()"
+  ></button-back>
+    <app-centros-empresa
+    [Empresa]="empresa"
+    ></app-centros-empresa>
+}
+
+<router-outlet *ngIf="isClicked"></router-outlet>
+
+
+<app-sin-datos *ngIf="!existData"></app-sin-datos>

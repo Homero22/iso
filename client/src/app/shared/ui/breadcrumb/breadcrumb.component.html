@@ -1,0 +1,41 @@
+<nav class="flex mb-8" aria-label="Breadcrumb">
+  <ol
+    class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+  >
+    <i class="{{ classIcon }}" style="font-size: 14px; padding-right: 10px">{{
+      icon
+    }}</i>
+    <li
+      *ngFor="let breadcrumb of breadcrumbs; let last = last"
+      [class.active]="last"
+      class="inline-flex items-center"
+    >
+      <a
+        *ngIf="!last; else lastBreadcrumb"
+        [routerLink]="breadcrumb.url"
+        (click)="IsoClick()"
+        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-black"
+      >
+        {{ breadcrumb.label }}
+      </a>
+      <div class="flex items-center">
+        <svg
+          class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 9 4-4-4-4"
+          />
+        </svg>
+      </div>
+      <ng-template #lastBreadcrumb>{{ breadcrumb.label }}</ng-template>
+    </li>
+  </ol>
+</nav>

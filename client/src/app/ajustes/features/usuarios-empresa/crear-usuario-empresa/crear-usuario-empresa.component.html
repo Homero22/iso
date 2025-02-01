@@ -1,0 +1,95 @@
+<div class="p-4 bg-gray-100 rounded-lg">
+  <form [formGroup]="usuarioEmpresaForm" (ngSubmit)="crearUsuario()">
+    <!-- Nombre de la empresa -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Nombre de la Empresa</label>
+      <input type="text" formControlName="str_empresa_nombre" class="mt-1 p-2 w-full border rounded bg-gray-200"
+        readonly />
+    </div>
+        <!-- Nombre del centro -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Nombre del Centro</label>
+          <input type="text" formControlName="str_centro_nombre" class="mt-1 p-2 w-full border rounded bg-gray-200"
+            readonly />
+    </div>
+
+    <!-- Nombre -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Nombre del Usuario</label>
+      <input type="text" formControlName="str_usuario_nombres" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa el nombre" />
+    </div>
+
+    <!-- Apellidos -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+      <input type="text" formControlName="str_usuario_apellidos" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa los apellidos" />
+    </div>
+    <!-- Cédula -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Cédula</label>
+      <input type="text" formControlName="str_usuario_cedula" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa la cédula" />
+    </div>
+
+
+    
+    <!-- Correo Electrónico -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+      <input type="email" formControlName="str_usuario_email" class="mt-1 p-2 w-full border rounded "/>
+    </div>
+    <!-- Teléfono -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+      <input type="tel" formControlName="str_usuario_telefono" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa el teléfono" />
+    </div>
+    <!-- Estado -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Estado</label>
+      <select formControlName="str_usuario_estado" class="mt-1 p-2 w-full border rounded">
+        <option value="ACTIVO">ACTIVO</option>
+        <option value="INACTIVO">INACTIVO</option>
+      </select>
+    </div>
+
+    <!-- Tipo -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Tipo</label>
+      <select formControlName="str_usuario_tipo" class="mt-1 p-2 w-full border rounded">
+        <option value="ADMINISTRADOR">Administrador</option>
+        <option value="USUARIO">Usuario</option>
+      </select>
+    </div>
+
+    <!-- Clave -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Clave</label>
+      <input type="password" formControlName="str_usuario_clave" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa la clave" />
+    </div>
+
+    <!-- rol -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Rol</label>
+      <select formControlName="int_rol_id" class="mt-1 p-2 w-full border rounded">
+        @for (item of roles; track $index) {
+          <option value={{item.int_rol_id}}>{{item.str_rol_nombre}}</option>
+        }
+      </select>
+    </div>
+
+
+
+
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-2">
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded" [disabled]=" ">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

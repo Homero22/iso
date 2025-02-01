@@ -1,0 +1,79 @@
+@if (!isClicked) {
+  <div class="flex items-center justify-between px-4">
+    <h5 class="text-lg font-light" style="color: var(--color-gris-oscuro)">
+      Centros de 
+      <span class="font-bold" style="color: var(--color-primary)">{{
+        titulo
+      }}</span>
+    </h5>
+    <button-modal
+        [tipoModal]="'nuevoCentro'"
+        [titleModal]="'Nuevo Centro'"
+        [contenido]="'Nuevo Centro a la empresa'"
+        [conIcono]="true"
+        [icono]="'add'"
+        [color]="'#1c1917'"
+        (click)="addCentro()"
+      >
+    </button-modal>
+  </div>
+
+  @if (existData) {
+    <div class="contenedor-tabla table-responsive col-lg-12 p-2">
+      <div class="tabla-cuerpo">
+        <table class="table table-striped tabla-estilos">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center">#</th>
+              <th scope="col">
+                <div class="">Centro</div>
+              </th>
+              <th scope="col">
+                <div class="">Dirección</div>
+              </th>
+              <th scope="col">
+                <div class="">Teléfono</div>
+              </th>
+              <!-- <th scope="col">
+                <div class="">Usuarios</div>
+              </th> -->
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of centros; track $index){
+            <tr>
+              <th scope="row">{{ $index + 1 }}</th>
+              <td class="content-nombre-user">
+                {{ row.str_centro_nombre }}
+              </td>
+              <td>{{ row.str_centro_direccion }}</td>
+              <td>{{ row.str_centro_telefono }}</td>
+  
+              <td>
+                <div class="contenedor-btn-acciones">
+                  <button-edit (click)="editRow(row)" [title]="'Editar'" onkeypress="editRow(row)"></button-edit>
+                  <!-- Boton ver usuarios -->
+                  <button-add class="" (click)="verUsuarios(row.int_centro_id, row)" [title]="'Ver Usuarios'"
+                    onkeypress="verUsuarios(row.int_centro_id, row)">
+                    <i class="fas fa-users"></i>
+                  </button-add>
+                  <button-delete (click)="deleteRow($index)" [title]="'Eliminar'"
+                    onkeypress="deleteRow($index)"></button-delete>
+                </div>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }@else {
+    <app-sin-datos [loading]="true" [mensaje]="'No hay centros asociados a esta Empresa'"></app-sin-datos>
+  }
+}
+
+@if (isClicked) {
+
+  <router-outlet ></router-outlet>
+}

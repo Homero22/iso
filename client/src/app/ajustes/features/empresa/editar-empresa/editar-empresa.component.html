@@ -1,0 +1,42 @@
+<div class="p-4 bg-gray-100 rounded-lg">
+  <form [formGroup]="empresaForm" (ngSubmit)="editarEmpresa()">
+
+    <!-- Nombre -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Nombre</label>
+      <input type="text" formControlName="str_empresa_nombre" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa el nombre" />
+    </div>
+    <!-- Dirección -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Dirección</label>
+      <input type="text" formControlName="str_empresa_direccion" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa la dirección" />
+    </div>
+    <!-- Correo Electrónico -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+      <input type="email" formControlName="str_empresa_email" class="mt-1 p-2 w-full border rounded bg-gray-200"
+        readonly />
+    </div>
+    <!-- Teléfono -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+      <input type="tel" formControlName="str_empresa_telefono" class="mt-1 p-2 w-full border rounded"
+        placeholder="Ingresa el teléfono" />
+    </div>
+    <!-- Fecha de creación -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Fecha de Creación</label>
+      <input type="date" formControlName="dt_fecha_creacion" class="mt-1 p-2 w-full border rounded" />
+    </div>
+
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-2">
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded" [disabled]="empresaForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

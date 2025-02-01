@@ -1,0 +1,33 @@
+<div class="my-8 text-3xl text-start">Planificación de Acciones</div>
+<div class="flex h-full">
+  <!-- Tabs verticales -->
+  <div class="col-3 border-r border-gray-300 bg-gray-100 rounded">
+    <ul class="space-y-2 p-4">
+      @for (item of tabs; track $index) {
+      <li
+        (click)="selectedTab = $index"
+        onkeypress=""
+        class="cursor-pointer p-2 text-gray-700 rounded-lg hover:bg-gray-200"
+        [class.bg-gray-300]="selectedTab === $index"
+      >
+        {{ item.label }}
+      </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Contenido del formulario -->
+  <div class="col-9 ps-4">
+    @switch (selectedTab) { @case (0) {
+    <app-plan-capacitacion></app-plan-capacitacion>
+    } @case (1) {
+    <app-plan-inspecciones></app-plan-inspecciones>
+    } @case (2) {
+    <app-plan-trabajo></app-plan-trabajo>
+    } @default {
+    <div>
+      <p class="text-gray-500">Selecciona un tab para mostrar el formulario.</p>
+    </div>
+    } }
+  </div>
+</div>

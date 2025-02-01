@@ -1,0 +1,67 @@
+<div class="modal fade" id="modalGeneral">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-print">
+        <h5 class="modal-title" id="modalAgregarPLazo">{{ titleModal }}</h5>
+        <button
+          #closeModal
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          id="modalClose"
+          (click)="cerrarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div [ngSwitch]="tipoFormulario">
+          <div *ngSwitchCase="'clear'"></div>
+
+          <div *ngSwitchCase="'editarEmpresa'">
+            <app-editar-empresa></app-editar-empresa>
+          </div>
+
+          <div *ngSwitchCase="'nuevaEmpresa'">
+            <app-crear-empresa></app-crear-empresa>
+          </div>
+          <div *ngSwitchCase="'editarUsuario'">
+            <app-editar-usuario></app-editar-usuario>
+          </div>
+          <div *ngSwitchCase="'nuevoUsuarioEmpresa'">
+            <app-crear-usuario-empresa></app-crear-usuario-empresa>
+          </div>
+
+          <div  *ngSwitchCase="'editarRol'">
+            <app-editar-rol></app-editar-rol>
+          </div>
+
+          <div *ngSwitchCase="'nuevoRol'">
+            <app-crear-rol></app-crear-rol>
+          </div>
+
+          <div *ngSwitchCase="'nuevoCentro'">
+            <app-crear-centro></app-crear-centro>
+          </div>
+
+          <div *ngSwitchCase="'editarCentro'">
+            <app-editar-centro></app-editar-centro>
+          </div>
+
+
+          <div *ngSwitchCase="'cambiarClave'">
+            <app-nueva-clave [data]="data"></app-nueva-clave>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer no-print">
+        <button
+          class="btn btn-cancelar"
+          data-bs-dismiss="modal"
+          (click)="cerrarModal()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

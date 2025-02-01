@@ -1,0 +1,33 @@
+<header class="header">
+  <div class="header-content responsive-wrapper">
+    <div class="header-logo">
+      <a [routerLink]="['/dashboard']" class="header__logo">
+        <div class="img__logo img__logo_full">
+          <img src="images/svg/logo-iso45001.svg" alt="logo_iso45001" />
+        </div>
+        <h6>IPS IMPLEMENTATION | ISO45001</h6>
+      </a>
+    </div>
+    <div class="header-navigation">
+      <div class="header-navigation-actions">
+        <button (click)="cerrarSeccion()" class="button">
+          <i class="ph-lightning-bold"></i>
+          <span>Salir</span>
+        </button>
+        <a href="#" class="icon-button">
+          <i class="ph-gear-bold"></i>
+        </a>
+        <a href="#" class="icon-button">
+          <i class="ph-bell-bold"></i>
+        </a>
+        <a href="#" class="avatar">
+          <img src="https://assets.codepen.io/285131/hat-man.png" alt="" />
+        </a>
+      </div>
+    </div>
+    <!-- <button class="button">
+      <i class="ph-list-bold"></i>
+      <span>Menu</span>
+    </button> -->
+  </div>
+</header>

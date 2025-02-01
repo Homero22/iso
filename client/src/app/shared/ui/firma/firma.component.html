@@ -1,0 +1,29 @@
+<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Firma Digital</h2>
+  
+  <div class="signature-container mb-4">
+    <canvas #signatureCanvas 
+      class="border-2 border-gray-300 rounded-lg w-full touch-none"
+      style="height: 200px;"
+    ></canvas>
+  </div>
+
+  <p class="text-sm text-gray-500 mb-4">
+    Utilice el mouse o su dedo para firmar en el área designada arriba.
+  </p>
+
+  <div class="flex space-x-4">
+    <button 
+      (click)="clearSignature()"
+      class="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+    >
+      Limpiar
+    </button>
+    <button 
+      (click)="saveSignature()"
+      class="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+    >
+      Guardar
+    </button>
+  </div>
+</div>

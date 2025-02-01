@@ -1,0 +1,65 @@
+<div class="contenedor-head">
+  <div class="titulo">
+    <h6 class="my-3 font-bold">Perfil de usuario</h6>
+  </div>
+  <div class="contenedor-botones">
+    <button-secondary
+      *ngIf="!isEditing"
+      [tipoButton]="'EditarPerfilUsuario'"
+      [titleButton]="'Editar'"
+      [contenido]="'Editar'"
+      [conIcono]="true"
+      [icono]="'edit'"
+      [color]="''"
+      (click)="editarPerfil()"
+      (keyup)="editarPerfil()"
+    >
+    </button-secondary>
+    <button-secondary
+      *ngIf="isEditing"
+      [tipoButton]="'CancelarEdicion'"
+      [titleButton]="'Cancelar'"
+      [contenido]="'Cancelar'"
+      [conIcono]="true"
+      [icono]="''"
+      [color]="''"
+      (click)="cancelarEdicion()"
+      (keyup)="editarPerfil()"
+    >
+    </button-secondary>
+    <button-secondary
+      *ngIf="isEditing"
+      [tipoButton]="'GuardarCambios'"
+      [titleButton]="'Guardar'"
+      [contenido]="'Guardar'"
+      [conIcono]="true"
+      [icono]="''"
+      [color]="''"
+      (click)="onGuardar(usuario)"
+      (keyup)="editarPerfil()"
+    >
+    </button-secondary>
+  </div>
+</div>
+
+<hr />
+
+<app-cargando-perfil [loading]="loading || request"></app-cargando-perfil>
+<div *ngIf="!loading && !request">
+  <app-mostrar-perfil
+    *ngIf="!isEditing"
+    [usuario]="usuario"
+  ></app-mostrar-perfil>
+  <app-editar-perfil
+    *ngIf="isEditing"
+    [usuario]="usuario"
+    (guardar)="onGuardar($event)"
+  ></app-editar-perfil>
+</div>
+
+<div class="titulo">
+  <h6 class="my-3 font-bold">Sesiones de inicio de sesión</h6>
+  <span>Lugares donde has iniciado sesión en ISO BRIDGE TOOLS.</span>
+</div>
+
+<hr />

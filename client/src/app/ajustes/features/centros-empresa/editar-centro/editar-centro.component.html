@@ -1,0 +1,68 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-6">Editar Centro</h1>
+
+  <!-- Formulario de Edición -->
+  <form [formGroup]="centroForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    
+    <!-- ID del Centro -->
+    <div class="hidden">
+      <label for="int_centro_id" class="block mb-1 text-sm font-medium text-gray-700">ID del Centro</label>
+      <input
+        id="int_centro_id"
+        type="text"
+        formControlName="int_centro_id"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+      />
+    </div>
+
+    <!-- Nombre del Centro -->
+    <div>
+      <label for="str_centro_nombre" class="block mb-1 text-sm font-medium text-gray-700">Nombre del Centro</label>
+      <input
+        id="str_centro_nombre"
+        type="text"
+        formControlName="str_centro_nombre"
+        placeholder="Nombre del centro"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+      />
+    </div>
+
+    <!-- Dirección del Centro -->
+    <div>
+      <label for="str_centro_direccion" class="block mb-1 text-sm font-medium text-gray-700">Dirección del Centro</label>
+      <input
+        id="str_centro_direccion"
+        type="text"
+        formControlName="str_centro_direccion"
+        placeholder="Dirección del centro"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+      />
+    </div>
+
+    <!-- Teléfono del Centro -->
+    <div>
+      <label for="str_centro_telefono" class="block mb-1 text-sm font-medium text-gray-700">Teléfono del Centro</label>
+      <input
+        id="str_centro_telefono"
+        type="tel"
+        formControlName="str_centro_telefono"
+        placeholder="Teléfono del centro"
+        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+      />
+    </div>
+
+
+
+
+    <!-- Botón de Guardar -->
+    <div>
+      <button
+        type="submit"
+        [disabled]="centroForm.invalid"
+        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+      >
+        Guardar Centro
+      </button>
+    </div>
+  </form>
+</div>

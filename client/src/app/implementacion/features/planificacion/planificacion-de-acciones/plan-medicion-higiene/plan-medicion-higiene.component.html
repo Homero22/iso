@@ -1,0 +1,239 @@
+<!-- Boton para salir del formulario -->
+<div class="flex justify-start">
+    <button-back
+      *ngIf="registrando"
+      (click)="cancelarRegistro()"
+      [title]="'Regresar'"
+      onkeypress=""
+    ></button-back>
+  </div>
+  <div class="text-3xl text-center mb-6">Plan de Mediciones de Higiene</div>
+  @if (!data && !registrando) {
+  
+  <div class="text-center py-6 bg-gray-100 rounded-lg">
+    <h2 class="text-xl font-semibold mb-2">¡No tienes un plan registrado aún!</h2>
+    <p class="text-gray-600 mb-4">
+      Empieza creando uno, llenando los datos a continuación.
+    </p>
+    <img
+      src="https://static.vecteezy.com/system/resources/previews/013/488/543/non_2x/flat-no-data-concept-outline-design-style-minimal-illustration-for-landing-page-web-banner-infographics-hero-images-vector.jpg"
+      alt="No hay datos"
+      width="300"
+      class="mx-auto mb-4"
+    />
+    <button
+      class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+      (click)="empezarRegistro()"
+    >
+      Empezar a Registrar
+    </button>
+  </div>
+  } @if ( registrando ) {
+    
+    <div class="p-4">
+      <h1 class="text-2xl font-bold mb-6">Factor de Riesgo: Físico</h1>
+    
+      <!-- Formulario para Agregar Actividad -->
+      <div class="border rounded-lg p-4 mb-4">
+        <h2 class="text-lg font-bold mb-4">Agregar Actividad</h2>
+        <div class="mb-4">
+          <label class="block mb-1 text-sm font-medium text-gray-700">Descripción de la Actividad</label>
+          <input
+            type="text"
+            [(ngModel)]="newRow.descripcion"
+            placeholder="Descripción de la actividad"
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
+    
+        <!-- Objetivos -->
+        <div class="mb-4">
+          <h3 class="text-md font-bold mb-2">Objetivos</h3>
+          <div *ngFor="let objetivo of newRow.objetivos; let i = index" class="border p-4 mb-2 rounded-lg">
+            <div class="mb-2">
+              <label class="block mb-1 text-sm font-medium text-gray-700">Descripción del Objetivo</label>
+              <input
+                type="text"
+                [(ngModel)]="newRow.objetivos[i].descripcion"
+                placeholder="Descripción del objetivo"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </div>
+            <div class="mb-2">
+              <label class="block mb-1 text-sm font-medium text-gray-700">Área de Trabajo</label>
+              <input
+                type="text"
+                [(ngModel)]="newRow.objetivos[i].area_trabajo"
+                placeholder="Área de trabajo"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </div>
+            <div class="mb-2">
+              <label class="block mb-1 text-sm font-medium text-gray-700">Número de Trabajadores</label>
+              <input
+                type="number"
+                [(ngModel)]="newRow.objetivos[i].numero_trabajadores"
+                placeholder="Número de trabajadores"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </div>
+            <div class="mb-2">
+              <label class="block mb-1 text-sm font-medium text-gray-700">Duración/Frecuencia</label>
+              <input
+                type="text"
+                [(ngModel)]="newRow.objetivos[i].duracion_frecuencia"
+                placeholder="Duración o frecuencia"
+                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </div>
+            <button
+              type="button"
+              class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 mt-2"
+              (click)="removeObjetivo(i)"
+            >
+              Eliminar Objetivo
+            </button>
+          </div>
+          <button
+            type="button"
+            class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 mt-2"
+            (click)="addObjetivo()"
+          >
+            Agregar Objetivo
+          </button>
+        </div>
+    
+        <!-- Botón para Guardar Actividad -->
+        <button
+          type="button"
+          class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          (click)="addActividad()"
+        >
+          Guardar Actividad
+        </button>
+      </div>
+    
+      <!-- Mostrar Actividades Existentes -->
+      <div class="border rounded-lg p-4">
+        <h2 class="text-lg font-bold mb-4">Actividades Existentes</h2>
+        <ul>
+          <li *ngFor="let actividad of data.factor_riesgo_fisico.actividades; let i = index" class="mb-4">
+            <h3 class="font-bold">Actividad {{ i + 1 }}: {{ actividad.descripcion }}</h3>
+            <ul>
+              <li *ngFor="let objetivo of actividad.objetivos; let j = index">
+                <p>{{ objetivo.descripcion }} (Área: {{ objetivo.area_trabajo }}, Trabajadores: {{ objetivo.numero_trabajadores }})</p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  
+  } @if (viewPdf) {
+  <div class="flex justify-start mb-4">
+    <button-back
+      [title]="'Regresar'"
+      (click)="mostrarTabla()"
+      onkeypress="mostrarTabla()"
+    ></button-back>
+  </div>
+  <div class="pdf-viewer">
+    <iframe
+      [src]="pdfUrl"
+      width="100%"
+      height="700px"
+      title="Plan de inspecciones PDF"
+    ></iframe>
+  </div>
+  } @if (data && !registrando && !viewPdf) {
+  <div class="flex mb-4 justify-between px-3">
+    <button-save
+      (click)="pdfSanitizado()"
+      [title]="'Generar Informe PDF'"
+      onkeypress="pdfSanitizado()"
+    ></button-save>
+    <!-- Agregar -->
+    <button-add
+      [title]="'Agregar Registro'"
+      (click)="empezarRegistro()"
+      onkeypress=""
+    ></button-add>
+  </div>
+  
+  <div class="contenedor-tabla table-responsive col-lg-12">
+    <div class="tabla-cuerpo">
+      <table class="table table-striped tabla-estilos">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center">#</th>
+            <th scope="col">
+              <div class="d-flex">Acciones</div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">Recursos</div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">Responsable</div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">Realizadas</div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">Planificadas</div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">Indicador de Eficiencia</div>
+            </th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <!-- <tbody>
+          <tr *ngFor="let row of rows; let i = index; let indice = index">
+            <th scope="row">{{ indice + 1 }}</th>
+            <td class="content-nombre-user">
+              {{ row.descripcion }}
+            </td>
+            <td>{{ row.recursos }}</td>
+            <td>{{ row.responsable }}</td>
+            <td class="text-center">
+              {{ row.acciones_realizadas }}
+            </td>
+            <td class="text-center">
+              {{ row.acciones_planificadas }}
+            </td>
+            <td [ngClass]="getEficaciaClass(row.indicador_eficacia)">
+              <div class="box-progress-wrapper">
+                <div class="box-progress-bar">
+                  <span
+                    class="box-progress"
+                    [style.width]="row.indicador_eficacia + '%'"
+                    style="background-color: #4067f9"
+                  ></span>
+                </div>
+                <p class="box-progress-percentage">
+                  {{ row.indicador_eficacia }}%
+                </p>
+              </div>
+            </td>
+            <td>
+              <div class="contenedor-btn-acciones">
+                <button-edit
+                  (click)="editRow(i)"
+                  [title]="'Editar'"
+                  onkeypress="editRow(i)"
+                ></button-edit>
+                <button-delete
+                  (click)="deleteRow(i)"
+                  [title]="'Eliminar'"
+                  onkeypress="deleteRow(i)"
+                ></button-delete>
+              </div>
+            </td>
+          </tr>
+        </tbody> -->
+      </table>
+    </div>
+  </div>
+  
+  }

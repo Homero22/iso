@@ -1,0 +1,22 @@
+<div class="px-6 py-4">
+  <div class="mb-4">
+    <span class="block text-gray-700 text-sm font-bold mb-2"
+      >Correo electrónico</span
+    >
+    <p class="text-gray-900">{{ usuario.str_usuario_email }}</p>
+  </div>
+  <div class="mb-4">
+    <span class="block text-gray-700 text-sm font-bold mb-2">Nombre</span>
+    <p class="text-gray-900">
+      {{ usuario.str_usuario_nombres + " " + usuario.str_usuario_apellidos }}
+    </p>
+  </div>
+  <div class="mb-4">
+    <span class="block text-gray-700 text-sm font-bold mb-2">Teléfon</span>
+    <p class="text-gray-900">{{ usuario.str_usuario_telefono }}</p>
+  </div>
+  <div class="mb-4">
+    <span class="block text-gray-700 text-sm font-bold mb-2">Contraseña</span>
+    <p class="text-gray-900">••••••••</p>
+  </div>
+</div>

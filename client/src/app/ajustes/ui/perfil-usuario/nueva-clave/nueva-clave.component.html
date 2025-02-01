@@ -1,0 +1,59 @@
+<form autocomplete="off" [formGroup]="myForm" novalidate>
+  <div class="row mb-6">
+    <div class="col-6 pe-2 mt-4 contentenedor-control">
+      <label class="form-label">
+        Ingrese Contraseña Actual
+        <input
+          type="text"
+          class="form-control"
+          id="contrasenaActual"
+          formControlName="str_usuario_clave"
+          value="{{ myForm.value.str_usuario_clave }}"
+          placeholder="Insertar la contraseña actual"
+        />
+      </label>
+      <div
+        class="alert alert-danger mt-2 control-error"
+        *ngIf="
+          myForm.get('str_usuario_clave')!.hasError('required') &&
+          myForm.get('str_usuario_clave')!.touched
+        "
+      >
+        El campo es requerido.
+      </div>
+    </div>
+    <div class="col-6 ps-2 mt-4 contentenedor-control">
+      <label class="form-label">
+        Nueva Contraseña
+        <input
+          type="text"
+          class="form-control"
+          id="nuevaContrasena"
+          formControlName="str_usuario_nueva_clave"
+          value="{{ myForm.value.str_usuario_nueva_clave }}"
+          placeholder="Ingrese la nueva contraseña"
+          [attr.disabled]="true"
+        />
+      </label>
+      <div
+        class="alert alert-danger mt-2 control-error"
+        *ngIf="
+          myForm.get('str_usuario_nueva_clave')!.hasError('required') &&
+          myForm.get('str_usuario_nueva_clave')!.touched
+        "
+      >
+        El campo es requerido.
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center contendor-botones mt-4">
+    <button
+      class="btn-continuar btn btn-h"
+      [disabled]="!myForm.valid"
+      (click)="actualizarContrasena()"
+    >
+      Actualizar Contraseña
+    </button>
+  </div>
+</form>

@@ -1,0 +1,100 @@
+<div class="full-height" *ngIf="!isClicked">
+  <div class="content-header">
+    <h4>Resumen de las Implementaciones de la <span>ISO 45001</span></h4>
+    <p>
+      Correspondiente a la empresa <span>{{ empresa.str_empresa_nombre }}</span
+      >.
+    </p>
+  </div>
+  <hr />
+
+  <div class="overflow-x-auto" *ngIf="this.existeEmpresa === true">
+    <div class="contenedor-tabla table-responsive col-lg-12">
+      <div class="tabla-cuerpo">
+        <table class="table table-striped tabla-estilos">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center">#</th>
+              <th scope="col">
+                <div class="d-flex">Código</div>
+              </th>
+              <th scope="col">
+                <div class="d-flex">Estado</div>
+              </th>
+              <th scope="col">
+                <div class="d-flex">Avance</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dato of datos; let i = index; let indice = index">
+              <th
+                scope="row"
+                style="cursor: pointer; text-align: center"
+                [routerLink]="[
+                  '/' + baseUrl + '/implementacion/resumen',
+                  id,
+                  'requisito',
+                  dato.codigo
+                ]"
+                onkeypress="return false"
+                (click)="IsoClick()"
+                (click)="navigateToSubModulo(dato.codigo)"
+              >
+                {{ indice + 1 }}
+              </th>
+              <td
+                style="cursor: pointer"
+                [routerLink]="[
+                  '/' + baseUrl + '/implementacion/resumen',
+                  id,
+                  'requisito',
+                  dato.codigo
+                ]"
+                class="content-nombre-user"
+                onkeypress="return false"
+                (click)="IsoClick()"
+                (click)="navigateToSubModulo(dato.codigo)"
+              >
+                {{ dato.codigo }}
+              </td>
+              <td
+                style="cursor: pointer"
+                [routerLink]="[
+                  '/' + baseUrl + '/implementacion/resumen',
+                  id,
+                  'requisito',
+                  dato.codigo
+                ]"
+                onkeypress="return false"
+                (click)="IsoClick()"
+                (click)="navigateToSubModulo(dato.codigo)"
+              >
+                <div class="pill pill-success">
+                  {{ dato.estado }}
+                </div>
+              </td>
+              <td
+                onkeypress="return false"
+                (click)="IsoClick()"
+                (click)="navigateToSubModulo(dato.codigo)"
+              >
+                <span class="pill pill-danger">{{ dato.avance }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-height">
+  <router-outlet *ngIf="isClicked"></router-outlet>
+</div>
+
+<app-sin-datos
+  *ngIf="this.existeEmpresa === false"
+  [loading]="loading && request"
+  [mensaje]="'Aun no se agrega ninguna empresa'"
+></app-sin-datos>

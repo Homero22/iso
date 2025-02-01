@@ -1,0 +1,355 @@
+<!-- Boton para salir del formulario -->
+<div class="flex justify-start">
+  <button-back
+    *ngIf="registrando"
+    (click)="cancelarRegistro()"
+    [title]="'Regresar'"
+    onkeypress=""
+  ></button-back>
+</div>
+@if (rows.length ===0 && !registrando) {
+
+<div class="text-center py-6 bg-gray-100 rounded-lg">
+  <h2 class="text-xl font-semibold mb-2">¡No tienes un plan registrado aún!</h2>
+  <p class="text-gray-600 mb-4">
+    Empieza creando uno, llenando los datos a continuación.
+  </p>
+  <img
+    src="https://static.vecteezy.com/system/resources/previews/013/488/543/non_2x/flat-no-data-concept-outline-design-style-minimal-illustration-for-landing-page-web-banner-infographics-hero-images-vector.jpg"
+    alt="No hay datos"
+    width="300"
+    class="mx-auto mb-4 rounded"
+  />
+  <button-save
+    [title]="'Empezar a Registrar'"
+    (click)="empezarRegistro()"
+    onkeypress=""
+  ></button-save>
+</div>
+} @if (registrando) {
+
+<div class="p-1">
+  <!-- Formulario para agregar filas -->
+  <form
+    class="border p-6 rounded-lg shadow-md bg-white"
+    (submit)="addRow($event)"
+  >
+    <div class="row">
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label for="tema" class="block mb-1 text-sm font-medium text-gray-700"
+          >Tema</label
+        >
+        <textarea
+          [(ngModel)]="newRow.tema"
+          placeholder="Tema"
+          name="tema"
+          required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+          rows="2"
+        ></textarea>
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label
+          for="ovjetivo"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Objetivo</label
+        >
+        <textarea
+          [(ngModel)]="newRow.objetivo"
+          placeholder="Objetivo"
+          name="objetivo"
+          required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+          rows="2"
+        ></textarea>
+      </div>
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label
+          for="dirigido"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Dirigido a
+        </label>
+        <textarea
+          [(ngModel)]="newRow.dirigido_a"
+          placeholder="Dirigido a"
+          name="dirigido"
+          required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+          rows="2"
+        ></textarea>
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label
+          for="indicador"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Indicador</label
+        >
+        <textarea
+          [(ngModel)]="newRow.indicador"
+          placeholder="Indicador"
+          name="indicador"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+          rows="2"
+        ></textarea>
+      </div>
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label
+          for="instructor"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Instructor</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="newRow.instructor"
+          placeholder="Instructor"
+          name="instructor"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+        />
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label
+          for="recursos"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Recursos</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="newRow.recursos"
+          placeholder="Recursos"
+          name="recursos"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+        />
+      </div>
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label
+          for="duracion_horas"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Duración Horas</label
+        >
+        <input
+          type="number"
+          [(ngModel)]="newRow.duracion_horas"
+          placeholder="Duración Horas"
+          name="duracion"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          min="0"
+        />
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label
+          for="participantes"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >N. Participantes</label
+        >
+        <input
+          type="number"
+          [(ngModel)]="newRow.numero_participantes"
+          placeholder="Número de Participantes"
+          name="participantes"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          min="0"
+        />
+      </div>
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label
+          for="presupuesto"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Presupuesto</label
+        >
+        <input
+          type="number"
+          [(ngModel)]="newRow.presupuesto"
+          placeholder="Presupuesto"
+          name="presupuesto"
+          required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          min="0"
+        />
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label for="mes" class="block mb-1 text-sm font-medium text-gray-700"
+          >Mes</label
+        >
+        <input
+          type="date"
+          [(ngModel)]="newRow.mes"
+          placeholder="Mes"
+          name="mes"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+        />
+      </div>
+
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label
+          for="acciones_planificadas"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Acciones Planificadas</label
+        >
+        <input
+          type="number"
+          [(ngModel)]="newRow.acciones_planificadas"
+          placeholder="Acciones Planificadas"
+          name="acciones_planificadas"
+          required="true"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+          rows="2"
+          (input)="calcularIndicadorEficacia(newRow)"
+        />
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label
+          for="acciones_realizadas"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Acciones Realizadas</label
+        >
+        <input
+          type="number"
+          [(ngModel)]="newRow.acciones_realizadas"
+          placeholder="Acciones Realizadas"
+          name="acciones_realizadas"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none"
+          rows="2"
+          (input)="calcularIndicadorEficacia(newRow)"
+        />
+      </div>
+      <div class="col-6 pe-2 mt-3 flex flex-col">
+        <label
+          for="indicador_eficacia"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Índice Eficacia</label
+        >
+        <input
+          type="number"
+          [(ngModel)]="newRow.indice_eficacia"
+          readonly
+          name="indice_eficacia"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none bg-gray-100"
+        />
+      </div>
+      <div class="col-6 ps-2 mt-3 flex flex-col">
+        <label
+          for="responsable"
+          class="block mb-1 text-sm font-medium text-gray-700"
+          >Responsable</label
+        >
+        <input
+          type="text"
+          [(ngModel)]="newRow.responsable"
+          placeholder="Responsable"
+          name="responsable"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+        />
+      </div>
+    </div>
+    <div class="md:col-span-2 mt-4">
+      <button-save [title]="'Guardar Registro'"></button-save>
+    </div>
+  </form>
+</div>
+} @if (viewPdf) {
+<div class="flex justify-start mb-4">
+  <button-back
+    [title]="'Regresar'"
+    (click)="mostrarTabla()"
+    onkeypress="mostrarTabla()"
+  ></button-back>
+</div>
+<div class="pdf-viewer">
+  <iframe [src]="pdfUrl" width="100%" height="700px" title="PDF"></iframe>
+</div>
+} @if (rows.length != 0 && !registrando && !viewPdf) {
+<div class="flex mb-4 justify-between px-3">
+  <button-save
+    (click)="pdfSanitizado()"
+    [title]="'Generar Informe PDF'"
+    onkeypress="pdfSanitizado()"
+  ></button-save>
+  <!-- Agregar -->
+  <button-add
+    [title]="'Agregar Registro'"
+    (click)="empezarRegistro()"
+    onkeypress=""
+  ></button-add>
+</div>
+<div class="contenedor-tabla table-responsive col-lg-12">
+  <div class="tabla-cuerpo">
+    <table class="table table-striped tabla-estilos">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">#</th>
+          <th scope="col">
+            <div class="text-center">Tema</div>
+          </th>
+          <th scope="col"><div class="text-center">Objetivo</div></th>
+          <th scope="col">
+            <div class="text-center">Dirigido a</div>
+          </th>
+          <th scope="col">
+            <div class="text-center">Presupuesto</div>
+          </th>
+          <th scope="col">
+            <div class="text-center">Mes</div>
+          </th>
+          <th scope="col">
+            <div class="text-center">Acciones realizadas</div>
+          </th>
+          <th scope="col">
+            <div class="text-center">Acciones planificadas</div>
+          </th>
+          <th scope="col">
+            <div class="text-center">Índice Eficacia</div>
+          </th>
+          <th scope="col" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows; track $index) {
+        <tr>
+          <th scope="row">{{ $index + 1 }}</th>
+          <td class="text-center">{{ limitarCaracteres(row.tema, 15) }}</td>
+          <td class="text-center">{{ limitarCaracteres(row.objetivo, 15) }}</td>
+          <td class="text-center">
+            {{ limitarCaracteres(row.dirigido_a, 15) }}
+          </td>
+          <td class="text-center">{{ row.presupuesto }}</td>
+          <td class="text-center">{{ row.mes }}</td>
+          <td class="text-center">
+            {{ row.acciones_realizadas }}
+          </td>
+          <td class="text-center">
+            {{ row.acciones_planificadas }}
+          </td>
+          <td [ngClass]="getEficaciaClass(row.indice_eficacia)">
+            <div class="box-progress-wrapper">
+              <div class="box-progress-bar">
+                <span
+                  class="box-progress"
+                  [style.width]="row.indice_eficacia + '%'"
+                  style="background-color: #4067f9"
+                ></span>
+              </div>
+              <p class="box-progress-percentage">{{ row.indice_eficacia }}%</p>
+            </div>
+          </td>
+
+          <td class="px-6 py-4 text-end">
+            <div class="contenedor-btn-acciones">
+              <button-edit
+                (click)="editRow($index)"
+                [title]="'Editar'"
+                onkeypress="editRow($index)"
+              ></button-edit>
+              <button-delete
+                (click)="deleteRow($index)"
+                [title]="'Eliminar'"
+                onkeypress="deleteRow($index)"
+              ></button-delete>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+}

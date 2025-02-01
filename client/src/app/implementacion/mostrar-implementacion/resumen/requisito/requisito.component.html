@@ -1,0 +1,113 @@
+<div class="flex flex-col h-full">
+  <div class="content-header">
+    <h4>REQUISITOS DE LA NORMA <span>ISO 45001</span></h4>
+    <p>Correspondiente a la empresa <span>Contenido</span>.</p>
+  </div>
+
+  <!-- MENU TabBar -->
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'contexto'
+        ]"
+        [ngClass]="{ active: activeTab === 'contexto' }"
+        class="nav-link"
+        id="nav-vencer-tab"
+        type="button"
+      >
+        4. Contexto
+      </button>
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'liderazgo'
+        ]"
+        [ngClass]="{ active: activeTab === 'liderazgo' }"
+        class="nav-link"
+        id="nav-vigentes-tab"
+      >
+        5. Liderazgo
+      </button>
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'planificacion'
+        ]"
+        [ngClass]="{ active: activeTab === 'planificacion' }"
+        class="nav-link"
+        id="nav-renovar-tab"
+      >
+        6. Planificación
+      </button>
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'apoyo'
+        ]"
+        [ngClass]="{ active: activeTab === 'apoyo' }"
+        class="nav-link"
+        id="nav-vigentes-tab"
+      >
+        7. Apoyo
+      </button>
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'operacion'
+        ]"
+        [ngClass]="{ active: activeTab === 'operacion' }"
+        class="nav-link"
+        id="nav-vigentes-tab"
+      >
+        8. Operación
+      </button>
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'evaluacion_desempeno'
+        ]"
+        [ngClass]="{ active: activeTab === 'evaluacion_desempeno' }"
+        class="nav-link"
+        id="nav-vigentes-tab"
+      >
+        9. Evaluación de Desempeño
+      </button>
+      <button
+        [routerLink]="[
+          '/' + baseUrl + '/implementacion/resumen',
+          id,
+          'requisito',
+          codigo,
+          'mejora'
+        ]"
+        [ngClass]="{ active: activeTab === 'mejora' }"
+        class="nav-link"
+        id="nav-vigentes-tab"
+      >
+        10. Mejora
+      </button>
+    </div>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>
